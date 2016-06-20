@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   }
 
   resources :users
+  resources :topics do
+    resources :bookmarks
+  end
 
   get 'about' => 'welcome#about'
 
