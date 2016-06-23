@@ -88,7 +88,7 @@ RSpec.describe TopicsController, type: :controller do
 
   describe "PUT update" do
     it "updates topic with expected attributes" do
-      new_title = "New Topic Title"
+      new_title = RandomData.random_sentence
       put :update, id: my_topic.id, topic: {title: new_title}
       updated_topic = assigns(:topic)
       expect(updated_topic.id).to eq my_topic.id
@@ -96,7 +96,7 @@ RSpec.describe TopicsController, type: :controller do
     end
 
     it "redirects to the updated topic" do
-      new_title = "New Topic Title"
+      new_title = RandomData.random_sentence
       put :update, id: my_topic.id, topic: {title: new_title}
       expect(response).to redirect_to my_topic
     end

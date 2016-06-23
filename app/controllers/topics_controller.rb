@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
 
   before_filter :authenticate_user!, except: [:index, :show]
+  before_filter :find_topic, except: [:index, :new, :create]
 
   def index
     @topics = Topic.all
@@ -59,5 +60,9 @@ class TopicsController < ApplicationController
 private
   def topic_params
     params.require(:topic).permit(:title, :private)
+  end
+
+  def find_topic
+    @topic = Topic.find(params[:id])
   end
 end
