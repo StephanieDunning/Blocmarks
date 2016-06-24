@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  default_url_options :host => "enigmatic-escarpment-53761.herokuapp.com"
 
   get 'bookmarks/show'
 
