@@ -6,8 +6,27 @@ class IncomingController < ApplicationController
   def create
     @user = User.find_by(email: params[:sender])
     @topic = Topic.find_by(title: params[:subject])
+    @url = params["body-plain"]
+
+    if @user.nil?
+      @user = User.new(
+        email:                 params[:sender],
+        password:              'helloworld',
+        password_confirmation: params[:sender]
+      )
+      @user.save!
+    end
+
+    if @topic.nil?
+      @topic = Topic.new
+      @topic = @user.topics.create(title: params[:subject])
+      @topic.save!
+    end
+
+    @bookmark = Bookmark.new
     @bookmark = @topic.bookmarks.build(url: params['body-plain'])
     @bookmark.user = @user
+    @bookmark.url = @url.strip
     @bookmark.save
     puts "INCOMING PARAMS HERE: #{params}"
     head 200

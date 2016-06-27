@@ -9,4 +9,5 @@ class User < ActiveRecord::Base
   end
 
   has_many :topics
+  has_many :bookmarks
 end

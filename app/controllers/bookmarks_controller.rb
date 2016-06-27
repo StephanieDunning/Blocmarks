@@ -13,10 +13,12 @@ class BookmarksController < ApplicationController
   end
 
   def new
-    @bookmark = @topic.bookmarks.new
+    @topic = Topic.find(params[:topic_id])
+    @bookmark = Bookmark.new
   end
 
   def create
+    @topic = Topic.find(params[:topic_id])
     @bookmark = @topic.bookmarks.build(bookmark_params)
 
     if @bookmark.save
