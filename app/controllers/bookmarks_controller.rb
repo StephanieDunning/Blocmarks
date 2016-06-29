@@ -4,10 +4,6 @@ class BookmarksController < ApplicationController
   before_filter :find_topic
   before_filter :find_bookmark, except: [:new, :create]
 
-  def index
-    @bookmarks = Bookmark.all
-  end
-
   def show
     @bookmark = Bookmark.find(params[:id])
   end
@@ -20,6 +16,7 @@ class BookmarksController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @bookmark = @topic.bookmarks.build(bookmark_params)
+    @bookmark.user = current_user
 
     if @bookmark.save
       flash[:notice] = "Bookmark was saved."
@@ -31,12 +28,16 @@ class BookmarksController < ApplicationController
   end
 
   def edit
+    @user = current_user
     @bookmark = Bookmark.find(params[:id])
+    authorize @bookmark
   end
 
   def update
+    @user = current_user
     @bookmark = Bookmark.find(params[:id])
     @bookmark.url = params[:bookmark][:url]
+    authorize @bookmark
 
     if @bookmark.save
       flash[:notice] = "Bookmark was updated successfully."
@@ -48,7 +49,9 @@ class BookmarksController < ApplicationController
   end
 
   def destroy
+    @user = current_user
     @bookmark = Bookmark.find(params[:id])
+    authorize @bookmark
 
     if @bookmark.destroy
       flash[:notice] = "\"#{@bookmark.url}\" was deleted successfully."
@@ -62,14 +65,6 @@ class BookmarksController < ApplicationController
 private
   def bookmark_params
     params.require(:bookmark).permit(:url, :private)
-  end
-
-  def authorize_user
-    @bookmark = Bookmark.find(params[:id])
-    unless current_user == @bookmark.user
-      flash[:alert] = "You must be the bookmark creator to do that."
-      redirect_to @topic
-    end
   end
 
   def find_topic

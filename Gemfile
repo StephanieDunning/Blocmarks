@@ -21,6 +21,7 @@ source 'https://rubygems.org'
  gem 'bootstrap-sass'
  gem 'figaro'
  gem 'pry'
+ gem 'pundit'
  # gem 'mailgun_rails'
 
  group :development, :test do

@@ -23,7 +23,7 @@ class IncomingController < ApplicationController
       @topic.save!
     end
 
-    @bookmark = Bookmark.new
+    # @bookmark = Bookmark.new
     @bookmark = @topic.bookmarks.build(url: params['body-plain'])
     @bookmark.user = @user
     @bookmark.url = @url.strip

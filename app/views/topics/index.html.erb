@@ -1,7 +1,5 @@
 <h1>All Topics</h1>
 
-<%= link_to "New", new_topic_path, class: 'btn btn-success' %>
-
 <% @topics.each do |topic| %>
 <div class="media">
   <div class="media-body">
@@ -11,3 +9,4 @@
   </div>
 </div>
 <% end %>
+<%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>

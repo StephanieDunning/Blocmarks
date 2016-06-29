@@ -57,6 +57,14 @@ class TopicsController < ApplicationController
     end
   end
 
+  def authorize_user
+    @topic = Topic.find(params[:id])
+    unless current_user == @topic.user
+      flash[:notice] = "You must be the topic owner to do that."
+      redirect_to @topic
+    end
+  end
+
 private
   def topic_params
     params.require(:topic).permit(:title, :private)
