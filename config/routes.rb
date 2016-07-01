@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'likes/index'
+
   default_url_options :host => "enigmatic-escarpment-53761.herokuapp.com"
 
   get 'bookmarks/show'
@@ -15,7 +17,11 @@ Rails.application.routes.draw do
 
   resources :users
   resources :topics do
-    resources :bookmarks
+    resources :bookmarks, except: [:index]
+  end
+
+  resources :bookmarks, only: [] do
+    resources :likes, only: [:index, :create, :destroy]
   end
 
   get 'about' => 'welcome#about'

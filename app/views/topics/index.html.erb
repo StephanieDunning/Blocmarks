@@ -1,12 +1,11 @@
-<h1>All Topics</h1>
-
-<% @topics.each do |topic| %>
-<div class="media">
-  <div class="media-body">
-    <h4 class="media-heading">
-      <%= link_to topic.title, topic %>
-    </h4>
-  </div>
+<div align="center">
+<h2>All Topics</h2>
 </div>
-<% end %>
-<%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+<div class="col-md-8">
+  <% @topics.each do |topic| %>
+    <h4><p><%= link_to topic.title, topic %></p></h4>
+  <% end %>
+</div>
+<div align="left">
+  <%= link_to "New Topic", new_topic_path, class: 'btn btn-success' %>
+</div>
