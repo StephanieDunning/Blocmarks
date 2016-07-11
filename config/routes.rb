@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/show'
+
   get 'likes/index'
 
   default_url_options :host => "enigmatic-escarpment-53761.herokuapp.com"
@@ -15,7 +17,7 @@ Rails.application.routes.draw do
     confirmations: 'users/confirmations'
   }
 
-  resources :users
+  resources :users, only: [:show]
   resources :topics do
     resources :bookmarks, except: [:index]
   end

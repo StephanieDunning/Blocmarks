@@ -9,6 +9,6 @@ class TopicPolicy < ApplicationPolicy
   # end
   #
   # def destroy?
-  #   user.present? && (record.topic.user == user)
+  #    user.present? && (record.topic.user == user)
   # end
 end
