@@ -1,23 +1,33 @@
 <div class="row">
-  <div class="col-md-6">
+  <div class="col-sm-12">
     <h3><%= current_user.full_name%>'s Bookmarks</h3>
-    <% @user_bookmarks.each do |bookmark| %>
-      <h4 class="media-heading">
-        <%="#{bookmark.topic.title}" %>
-          <%= link_to bookmark.url, bookmark.url %> <br>
-          <%= link_to "Delete", [bookmark.topic, bookmark], method: :delete, class: 'btn btn-danger' %>
-      </h4>
+    <% @grouped_user_bookmarks.each do |k,v| %>
+      <h4 class="media-heading" style="margin-top: 15px;">#<%= k.title %></h4>
+      <div class="row">
+        <% v.each do |bookmark| %>
+          <div class="col-sm-3">
+            <%= link_to bookmark.url, bookmark.url %> <br>
+            <%= link_to "Delete", [bookmark.topic, bookmark], method: :delete, class: 'btn btn-danger' %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
+
 <div class="row">
-  <div class="col-md-8">
+  <div class="col-sm-12">
     <h3>Bookmarks I Like</h3>
-      <% @liked_bookmarks.each do |like| %>
-      <h4 class="media-heading">
-        <%= like.bookmark.url %>
-        <%= render partial: 'likes/like', locals: { bookmark: like.bookmark } %>
-      </h4>
-      <% end %>
+    <% @grouped_liked_bookmarks.each do |k,v| %>
+      <h4 class="media-heading" style="margin-top: 15px;">#<%= k.title %></h4>
+      <div class="row">
+        <% v.each do |like,bookmark| %>
+          <div class="col-sm-3">
+            <%= link_to like.bookmark.url, like.bookmark.url %> <br>
+            <%= link_to "Unlike", [like.bookmark.topic, bookmark], method: :delete, class: 'btn btn-danger' %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
